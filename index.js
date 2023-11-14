@@ -4,66 +4,65 @@ function getComputerChoice() {
     return computerChoice;
 }
 
-function getPlayerChoice() {
-    const playerChoice = alert("Wählen sie Rock, Paper oder Scissors");
-    return playerChoice;
-}
-
-
-
-
 function playRound(playerChoice, computerChoice) {
-    let theWinnerIs = "";
-    const playerChoiceLower = playerChoice.toLowerCase();
-    const computerChoiceLower = computerChoice.toLowerCase();
+    let theWinnerIs = "test";
+    console.log(playerChoice);
+    console.log(computerChoice);
 
-    if (playerChoiceLower === computerChoiceLower) {
+    if (playerChoice === computerChoice) {
         theWinnerIs = "tie";
         return theWinnerIs;
     }
 
     switch (playerChoice) {
-        case "rock":
-            if (computerChoiceLower === "scissors") {
+        case "Rock":
+            if (computerChoice === "Scissors") {
                 theWinnerIs = "player";
+                playerScore++;
             }
-            else { theWinnerIs = "computer"; }
+            else {
+                theWinnerIs = "computer1";
+                computerScore++;
+            }
             break;
 
-        case "paper":
-            if (computerChoiceLower === "rock") {
+        case "Paper":
+            if (computerChoice === "Rock") {
                 theWinnerIs = "player";
+                playerScore++;
             }
-            else { theWinnerIs = "computer"; }
+            else {
+                theWinnerIs = "computer2";
+                computerScore++;
+            }
             break;
 
-        case "scissors":
-            if (computerChoiceLower === "paper") {
+        case "Scissors":
+            if (computerChoice === "Paper") {
                 theWinnerIs = "player";
+                playerScore++;
+
             }
-            else { theWinnerIs = "computer"; }
+            else {
+                theWinnerIs = "computer3";
+                computerScore++;
+            }
             break;
     }
     return theWinnerIs;
 }
 
-function game() {
-    let playerCount = 0;
-    let computerCount = 0;
-    for (let i = 1; i <= 5; i++) {
-        const playerChoice = "rock";//getPlayerChoice();
-        const computerChoice = getComputerChoice();
-        let winner = playRound(playerChoice, computerChoice);
-        if (winner === "player") {playerCount++;}
-        if (winner === "computer") {computerCount++;}
-    }   
-    if (playerCount > computerCount) {
-        console.log("The player wins with " + playerCount + " points over the computers " +  computerCount + " points.");
-    }
-    else if (playerCount < computerCount) {
-        console.log("The computer wins with " + computerCount + " points over the players " + playerCount + " points.")
-    }
-    else {console.log("It is a tie with the player having " + playerCount + " points and the computer having " + computerCount + " points as well.")}
-}
+const divResult = document.querySelector('.result');
+const divPlayerScore = document.querySelector('.player-score');
+const divComputerScore = document.querySelector('.computer-score');
+const btn = document.querySelectorAll('button');
+let playerScore = 0;
+let computerScore = 0;
 
-console.log(game());
+btn.forEach(function (button) {
+    button.addEventListener('click', () => {
+        divResult.textContent = playRound(button.textContent, getComputerChoice());
+        divPlayerScore.textContent = playerScore;
+        divComputerScore.textContent = computerScore;
+    });
+});
